@@ -1,32 +1,31 @@
-function Select-Users()
+﻿function Select-Users()
 {
-	$action = $null
+	$userInput = $null
 
 	do
 	{
-		if ($null -ne $action)
+		if ($null -ne $userInput)
 		{		
-			Write-Host "Please pick between option 1 or 2" -ForegroundColor:"Red"
+			Write-Host "Unexpected input. Please try again." -ForegroundColor:"Red"
+			Write-Host
 		}
 
-		Write-Host "Would you like to extract log events for [1]All users or [2]Specific users"
-		$AllorSingleUse = Read-Host ">"
-
-		Write-Host $menu
-		$action = Read-Host "Select an action" 
-		
+		$menu = @"
+╔═══════════════════╗
+║ Export logs       ║
+╟───────────────────╢
+║ 1. All users      ║
+║ 2. Specific users ║
+╚═══════════════════╝
+"@
+		Write-Host $menu -ForegroundColor:"Gray" -BackgroundColor:"Black"
+		$userInput = Read-Host "Input"
 	}
-	while ($action -notin 1..2)
+	while ($userInput -notin 1..2)
 
-	if ($AllorSingleUse -eq 1)
+	if ($userInput -eq 2)
 	{
-		Write-Host "Extracting the Unified Audit Log for all users..."
-		$script:Userstoextract = "*"
-	}
-
-	else
-	{
-		Write-Host "Provide accounts that you wish to acquire, use comma separated values for multiple accounts, example (bob@acmecorp.onmicrosoft.com,alice@acmecorp.onmicrosoft.com)"
-		$script:Userstoextract = Read-Host ">"
+		Write-Host "Enter comma-separated user ids (e.g., james@test.onmicrosoft.com,mary@test.onmicrosoft.com)."
+		$Global:userIds = Read-Host "Input"
 	}
 }

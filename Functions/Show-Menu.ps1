@@ -1,24 +1,24 @@
 ﻿function Show-Menu
 {
 	$menu = @"
-╔════════════════════════════════════════════╗
-║    Main Menu                               ║
-╟────────────────────────────────────────────╢
-║ 1. Show available log sources and quantity ║
-║ 2. Export all Unified Audit Logs           ║
-║ 3. Export group Unified Audit Logs         ║
-║ 4. Export specific Unified Audit Logs      ║
-║ 5. Show README                             ║
-║ 6. Show LICENSE                            ║
-║ 7. Show ABOUT                              ║
-║ 8. Exit                                    ║
-╚════════════════════════════════════════════╝
+╔═════════════════════════╗
+║    Main Menu            ║
+╟─────────────────────────╢
+║ 1. Show log metrics     ║
+║ 2. Export all logs      ║
+║ 3. Export group logs    ║
+║ 4. Export specific logs ║
+║ 5. Show README          ║
+║ 6. Show LICENSE         ║
+║ 7. Show ABOUT           ║
+║ 8. Exit                 ║
+╚═════════════════════════╝
 "@
-	$action = $null
+	$menuInput = $null
 
 	do
 	{
-		if ($null -ne $action)
+		if ($null -ne $menuInput)
 		{		
 			Write-Host "Unexpected input. Please try again." -ForegroundColor:"Red"
 			Write-Host
@@ -29,10 +29,10 @@
 			Write-Host $menu -ForegroundColor:"Gray" -BackgroundColor:"Black"
 		}
 
-		$action = Read-Host "Input"
+		$menuInput = Read-Host "Input"
 		
 	}
-	while ($action -notin 1..8)
+	while ($menuInput -notin 1..8)
 
-	return $action
+	return $menuInput
 }

@@ -1,26 +1,26 @@
 function Get-StartDate()
 {
-    $startDate = $null
+    $inputDate = $null
 
     do
     {
-        if ($null -ne $startDate)
+        if ($null -ne $inputDate)
         {
-            Write-Host "Not a valid date and time." -ForegroundColor:"Red"
+            Write-Host "Unexpected input. Please try again." -ForegroundColor:"Red"
+			Write-Host
         }
 
-	    $dateStart = Read-Host "Please enter start date (format: yyyy-MM-dd) or ENTER for maximum 90 days"
-        
-		if ([string]::IsNullOrWhiteSpace($dateStart))
+	    Write-Host "Enter start date (format: yyyy-MM-dd) or leave empty for 90 days ago."
+        $inputDate = Read-Host "Input"
+
+		if ([string]::IsNullOrWhiteSpace($inputDate))
 		{
-			$dateStart = [DateTime]::Now.ToUniversalTime().AddDays(-90)
+			$inputDate = [DateTime]::Now.ToUniversalTime().AddDays(-90)
 		}
-		
-		$startDate = $dateStart -as [DateTime]
 	}
-	while ($startDate -isnot [DateTime])
+	while ($inputDate -isnot [DateTime])
 	
-	$dateString = Get-Date $startDate -Format "yyyy-MM-dd HH:mm:ss"
+	[string]$dateString = Get-Date $inputDate -Format "yyyy-MM-dd HH:mm:ss"
 
     return $dateString
 }

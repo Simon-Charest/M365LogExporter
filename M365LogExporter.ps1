@@ -14,11 +14,10 @@
 . ".\Functions\Show-Menu.ps1"
 . ".\Functions\Write-LogFile.ps1"
 
-
-$Global:exportDirectory = "..\Export"
-$Global:metrics = "{{$exportDirectory}}\metrics.csv"
-$Global:metadata = "{{$exportDirectory}}\metadata.txt"
-$Global:data = "{{$exportDirectory}}\data.csv"
+$Global:exportDirectory = ".\Export"
+$Global:metrics = "$($exportDirectory)\metrics.csv"
+$Global:metadata = "$($exportDirectory)\metadata.txt"
+$Global:data = "$($exportDirectory)\data.csv"
 
 <#
 $logDirectoryPath = $exportDirectory
@@ -29,7 +28,8 @@ $outputFile = $data
 
 $Global:resultSize = 5000 # Maximum record count allowed, by Microsoft, per query, for each session
 $Global:retryCount = 3
-$Global:currentTries = 0 
+$Global:currentTries = 0
+$Global:userIds = "*"
 
 function Invoke-Main()
 {

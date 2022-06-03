@@ -1,26 +1,26 @@
 function Get-EndDate()
 {
-    $endDate = $null
+    $inputDate = $null
 
     do
     {
-        if ($null -ne $endDate)
+        if ($null -ne $inputDate)
         {
-            Write-Host "Not a valid date and time." -ForegroundColor:"Red"
+            Write-Host "Unexpected input. Please try again." -ForegroundColor:"Red"
+			Write-Host
         }
 
-        $dateEnd = Read-Host "Please enter end date (format: yyyy-MM-dd) or ENTER for today"
+        Write-Host "Enter end date (format: yyyy-MM-dd) or leave empty for today."
+        $inputDate = Read-Host "Input"
 
-        if ([string]::IsNullOrWhiteSpace($dateEnd))
+        if ([string]::IsNullOrWhiteSpace($inputDate))
         {
-            $dateEnd = [DateTime]::Now.ToUniversalTime()
+            $inputDate = [DateTime]::Now.ToUniversalTime()
         }
-		
-        $endDate = $dateEnd -as [DateTime]
     }
-    while ($endDate -isnot [DateTime])
+    while ($inputDate -isnot [DateTime])
 
-    $dateString = Get-Date $endDate -Format "yyyy-MM-dd HH:mm:ss"
+    [string]$dateString = Get-Date $inputDate -Format "yyyy-MM-dd HH:mm:ss"
 
     return $dateString
 }
