@@ -1,4 +1,5 @@
 About this solution
 - Based on "Retrieving Office 365 Audit Data using PowerShell", in 2018, by Tehnoon Raza, at Microsoft (https://blogs.msdn.microsoft.com/tehnoonr/2018/01/26/retrieving-office-365-audit-data-using-powershell/);
 - Created and maintained, between 2019 and 2021, by Joey Rentenaar, Senior Associate Digital Forensics & Incident Response and Korstiaan Stam, Manager Digital Forensics & Incident Response, at PricewaterhouseCoopers Advisory N.V. (https://github.com/PwC-IR/Office-365-Extractor);
-- Forked and updated, in 2022, by Simon Charest (simon.charest@forensik.ca), Programmer Analyst - Incident Response, at Forensik (https://forensik.ca/).
+- Forked and updated, in 2022, by Simon Charest (simon.charest@forensik.ca), Programmer Analyst - Incident Response, at Forensik (https://forensik.ca/);
+- Project abandoned, on 2022-06-03, following the discovery of Microsoft 365 Extractor Suite (https://invictus-ir.medium.com/introduction-of-the-microsoft-365-extractor-suite-b85e148d4bfe), by Korstiaan Stam, Founder, at Invictus Incident Response.

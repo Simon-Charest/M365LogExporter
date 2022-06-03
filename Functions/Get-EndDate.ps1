@@ -10,13 +10,14 @@ function Get-EndDate()
 			Write-Host
         }
 
-        Write-Host "Enter end date (format: yyyy-MM-dd) or leave empty for today."
-        $inputDate = Read-Host "Input"
+        $inputDate = Read-Host "Enter end date (format: yyyy-MM-dd) or leave empty for today"
 
         if ([string]::IsNullOrWhiteSpace($inputDate))
         {
             $inputDate = [DateTime]::Now.ToUniversalTime()
         }
+
+        $inputDate = $inputDate -as [DateTime]
     }
     while ($inputDate -isnot [DateTime])
 

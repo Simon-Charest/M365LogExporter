@@ -14,7 +14,7 @@
 . ".\Functions\Show-Menu.ps1"
 . ".\Functions\Write-LogFile.ps1"
 
-$Global:exportDirectory = ".\Export"
+$Global:exportDirectory = ".\Export\$(Get-Date -Format "yyyy-MM-dd_HH-mm-ss")"
 $Global:metrics = "$($exportDirectory)\metrics.csv"
 $Global:metadata = "$($exportDirectory)\metadata.txt"
 $Global:data = "$($exportDirectory)\data.csv"

@@ -25,7 +25,6 @@
 
 	if ($userInput -eq 2)
 	{
-		Write-Host "Enter comma-separated user ids (e.g., james@test.onmicrosoft.com,mary@test.onmicrosoft.com)."
-		$Global:userIds = Read-Host "Input"
+		$Global:userIds = Read-Host "Enter comma-separated user ids (e.g., james@test.onmicrosoft.com,mary@test.onmicrosoft.com)"
 	}
 }

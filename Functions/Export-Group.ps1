@@ -1,3 +1,4 @@
+# TODO: Refactor this
 function Export-Group()
 {
     Write-host "1: Extract all Exchange logging"

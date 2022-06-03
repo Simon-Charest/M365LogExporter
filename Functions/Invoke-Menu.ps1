@@ -5,7 +5,7 @@ function Invoke-Menu($menuInput)
 		1
 		{
 			Select-Users
-			Show-Log
+			Show-Log $Global:metrics
 		}
 		2
 		{
