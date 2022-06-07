@@ -1,4 +1,4 @@
-<h3>Office 365 Extractor</h3>
+<h3>M365 Log Exporter</h3>
 This script makes it possible to extract log data out of an Office365 environment. The script created by us consist out of four main options, which enable the investigator to easily extract logging out of an Office365 environment. 
 
 1.	Show available log sources and amount of logging

@@ -10,4 +10,4 @@ Available commands
 3. Export group logs    : Export a group of Unified Audit Logs, within a date interval (e. g., all Exchange, OneDrive or SharePoint logs).
 4. Export specific logs : Export a subset of the Unified Audit Logs. The tool needs to be configured with the required AuditLogRecordType. The full list can be found at: https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema#enum-auditlogrecordtype---type-edmint32
 
-Visit the following page for a full README: https://github.com/PwC-IR/Office-365-Extractor
+Visit the following page for a full README: https://github.com/Simon-Charest/M365LogExporter

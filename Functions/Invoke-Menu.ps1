@@ -10,7 +10,7 @@ function Invoke-Menu($menuInput)
 		2
 		{
 			Select-Users
-			Export-All
+			Export-All $Global:data
 		}
 		3
 		{

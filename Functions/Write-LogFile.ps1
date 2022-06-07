@@ -1,5 +1,5 @@
-function Write-LogFile([String]$Message, [String]$LogFile)
+function Write-LogFile([string]$value, [string]$filePath)
 {
-    $content = [DateTime]::Now.ToString() + ":" + $Message
-    $content | Out-File $LogFile -Append
+    "$([DateTime]::Now.ToString()): $($value)" |
+        Out-File $filePath -Append
 }

@@ -18,8 +18,10 @@ $Global:exportDirectory = ".\Export\$(Get-Date -Format "yyyy-MM-dd_HH-mm-ss")"
 $Global:metrics = "$($exportDirectory)\metrics.csv"
 $Global:metadata = "$($exportDirectory)\metadata.txt"
 $Global:data = "$($exportDirectory)\data.csv"
+$Global:hashes = "$($exportDirectory)\hashes.csv"
 
 <#
+# TODO: Remove this
 $logDirectoryPath = $exportDirectory
 $logFile = $metadata
 $outputDirectory = $metrics
