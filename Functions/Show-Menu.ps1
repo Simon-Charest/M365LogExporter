@@ -1,17 +1,18 @@
-﻿function Show-Menu
+﻿function Show-Menu()
 {
 	$menu = @"
 ╔═════════════════════════╗
 ║    Main Menu            ║
 ╟─────────────────────────╢
-║ 1. Show log metrics     ║
-║ 2. Export all logs      ║
-║ 3. Export group logs    ║
-║ 4. Export specific logs ║
-║ 5. Show README          ║
-║ 6. Show LICENSE         ║
-║ 7. Show ABOUT           ║
-║ 8. Exit                 ║
+║ 1. Change tenant        ║
+║ 2. Export log metrics   ║
+║ 3. Export all logs      ║
+║ 4. Export group logs    ║
+║ 5. Export specific logs ║
+║ 6. Show README          ║
+║ 7. Show LICENSE         ║
+║ 8. Show ABOUT           ║
+║ 9. Exit                 ║
 ╚═════════════════════════╝
 "@
 	$menuInput = $null

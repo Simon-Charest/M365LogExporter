@@ -21,7 +21,7 @@ function Get-StartDate()
 	}
 	while ($inputDate -isnot [DateTime])
 	
-	[string]$dateString = Get-Date $inputDate -Format "yyyy-MM-dd HH:mm:ss"
+	[string]$dateString = Get-Date $inputDate -Format "yyyy-MM-dd 00:00:00"
 
     return $dateString  
 }

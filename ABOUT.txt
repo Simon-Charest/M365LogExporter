@@ -5,4 +5,4 @@ Timeline
 - 2019-03-27 - 2021-03-22 : Office 365 Extractor (PwC) created and maintained, by Joey Rentenaar, Senior Associate Digital Forensics & Incident Response and Korstiaan Stam, Manager Digital Forensics & Incident Response, at PricewaterhouseCoopers Advisory N.V. (https://github.com/PwC-IR/Office-365-Extractor);
 - 2019-04-25 - 2022-04-01 : Office 365 Extractor copy created and maintained, by Joey Rentenaar (https://github.com/JoeyRentenaar/Office-365-Extractor);
 - 2022-05-25 -            : Microsoft 365 Extractor Suite created, by Korstiaan Stam, Founder, at Invictus Incident Response (https://github.com/invictus-ir/Microsoft-365-Extractor-Suite);
-- 2022-06-01 -            : M365 Log Exporter was forked and updated, by Simon Charest (simon.charest@forensik.ca), Programmer Analyst - Incident Response, at Forensik (https://github.com/Simon-Charest/M365LogExporter).
+- 2022-06-01 -            : M365 Log Exporter was forked from Office 365 Extractor (PwC) and updated, by Simon Charest (simon.charest@forensik.ca), Programmer Analyst - Incident Response, at Forensik (https://github.com/Simon-Charest/M365LogExporter).

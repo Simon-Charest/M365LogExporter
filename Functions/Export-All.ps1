@@ -1,31 +1,29 @@
-# TODO: Refactor this
-function Export-All($filePath)
+function Export-All([string]$userIds, [string]$metadata, [string]$data, $properties)
 {
-    $startDate = Get-StartDate
-    $endDate = Get-EndDate
-    Write-Host "Note: Reduce time interval for environments with high log volume."
-    Write-Host "Recommended interval, in minutes: 60"
-    $minutes = Read-Host "Enter time interval or leave empty for 60"
-    $currentMinutes = $minutes
-    $resultSize = 1
+    # Setup
+    [int]$resultSize = 1
     $sessionCommand = "ReturnNextPreviewPage"
-    $properties = @("CreationTime","Workload","RecordType","Operation","UserId","UserType","DeviceProperties","UserAgent","ExtendedProperties","ClientIP","MailboxOwnerUPN","ClientInfoString","AffectedItems","Parameters","Policy","Subject","Verdict","PolicyAction","SiteUrl","SourceFileName")
+    
+    # User input
+    [DateTime]$startDate = Get-StartDate
+    [DateTime]$endDate = Get-EndDate
+    $minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
 
     if ([string]::IsNullOrWhiteSpace($minutes))
     {
-        $minutes = "60"
+        $minutes = 60
     }
 
-    Write-Host "Fetching all logs between $($startDate) and $($endDate), by $($minutes) minutes intervals..." -ForegroundColor:"Yellow"
+    [int]$currentMinutes = $minutes
+    [string]$object = "Fetching all logs between $($startDate.ToString($Global:dateFormat)) and $($endDate.ToString($Global:dateFormat)) (UTC), by $($currentMinutes) minutes intervals, for $(Get-Users $userIds)..."
+    Write-Host $object -ForegroundColor:"Yellow"
+    Write-LogFile $object  $Global:metadata
     
-    # Writing metadata headers to log file
-    Write-LogFile("StartDate;EndDate;Minutes;SessionId;PreviewCount;ResultCount;Status;UserIds;", $Global:metadata)
-        
+    # Loop on each time interval
     do
     {
         # Setup for preview
-        $previewCount = 0
-        $intervalEndDate = $startDate.AddMinutes($currentMinutes)
+        [int]$previewCount = 0
 
         # Preview
         do
@@ -34,31 +32,26 @@ function Export-All($filePath)
             if ($previewCount -ne 0)
             {
                 $currentMinutes = [int]($currentMinutes / 2)
-                Write-Host "Temporary lowering of the time interval to $($currentMinutes) minutes" -ForegroundColor:"Yellow"
+                Write-Host "Temporary lowering of the time interval to $($currentMinutes) minutes." -ForegroundColor:"Yellow"
             }
             
             # Fetching result counts
-            $results = Search-UnifiedAuditLog -EndDate:$intervalEndDate -StartDate:$startDate -ResultSize:$resultSize -UserIds:$Global:userIds
-
-            if ($results)
-            {
-                $previewCount = [int]($results | Select-Object -ExpandProperty:"ResultCount" -First:1)
-            }
+            [DateTime]$intervalEndDate = $startDate.AddMinutes($currentMinutes).AddSeconds(-1)
+            $results = Search-UnifiedAuditLog -EndDate:$intervalEndDate -StartDate:$startDate -ResultSize:$resultSize -UserIds:$userIds
+            $previewCount = Get-ResultCount $results
         }
         while ($previewCount -ge $Global:resultSize)
 
+        ########################################################################
+
         # Setup for actual results
-        $sessionId = $(Get-Date -Format "yyyy-MM-dd_HH-mm-ss")
-        $resultCount = 0
-        $status = "ERR"
+        [string]$sessionId = $(Get-Date -Format:$Global:filenameDateFormat)
+        [string]$status = "ERR"
+        $foregroundColor = "Red"
 
         # Fetching actual results
-        $results = Search-UnifiedAuditLog -EndDate:$intervalEndDate -StartDate:$startDate -ResultSize:$resultSize -SessionCommand:$sessionCommand -SessionId:$sessionId -UserIds:$Global:userIds
-
-        if ($results)
-        {
-            $resultCount = [Int]($results | Select-Object -ExpandProperty:"ResultCount" -First:1)
-        }
+        $results = Search-UnifiedAuditLog -EndDate:$intervalEndDate -StartDate:$startDate -ResultSize:$resultSize -SessionCommand:$sessionCommand -SessionId:$sessionId -UserIds:$userIds
+        [int]$resultCount = Get-ResultCount $results
 
         # Exporting results
         if ($resultCount -eq $previewCount)
@@ -73,25 +66,23 @@ function Export-All($filePath)
                 Select-Object $properties |
                 Export-Csv $Global:data -Append -NoTypeInformation
             $status = "OK"
+            $foregroundColor = "Green"
         }
 
         # Writing metadata to log file
-        Write-LogFile("$($startDate);$($intervalEndDate);$($currentMinutes);$($sessionId);$($previewCount);$($resultCount);$($status);$($Global:userIds);", $Global:metadata)
+        $object = "$($startDate.ToString($Global:dateFormat)) - $($intervalEndDate.ToString($Global:dateFormat)) => $($resultCount) [$($status)]"
+        Write-LogFile $object $Global:metadata
+        Write-Host $object -ForegroundColor:$foregroundColor
 
         # Resetting time interval
-        if ($previewCount -lt [int]($Global:resultSize / 2))
+        if ($previewCount -lt [int]($Global:resultSize / 5 -and $currentMinutes -ne $minutes))
         {
             $currentMinutes = $minutes
-            Write-Host "Resetting time interval to $($currentMinutes) minutes" -ForegroundColor:"Yellow"
+            Write-Host "Resetting time interval to $($currentMinutes) minutes." -ForegroundColor:"Yellow"
         }
         
         # Moving forward
         $startDate = $startDate.AddMinutes($currentMinutes)
     }
     while ($startDate -lt $endDate)
-
-    # Exporting hashes
-    Get-ChildItem $Global:exportDirectory -Filter:"*.csv" |
-        Get-FileHash -Algorithm:"SHA256" |
-        Export-Csv $Global:hashes
 }
