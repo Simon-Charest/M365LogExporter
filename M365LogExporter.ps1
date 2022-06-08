@@ -10,6 +10,7 @@
 . ".\Functions\Get-Users.ps1"
 . ".\Functions\Install-Prerequisites.ps1"
 . ".\Functions\Invoke-Menu.ps1"
+. ".\Functions\Invoke-Pause.ps1"
 . ".\Functions\New-Directory.ps1"
 . ".\Functions\Select-Users.ps1"
 . ".\Functions\Show-Content.ps1"

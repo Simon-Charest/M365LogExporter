@@ -5,14 +5,15 @@
 ║    Main Menu            ║
 ╟─────────────────────────╢
 ║ 1. Change tenant        ║
-║ 2. Export log metrics   ║
-║ 3. Export all logs      ║
-║ 4. Export group logs    ║
-║ 5. Export specific logs ║
-║ 6. Show README          ║
-║ 7. Show LICENSE         ║
-║ 8. Show ABOUT           ║
-║ 9. Exit                 ║
+║ 2. Check log status     ║
+║ 3. Export log metrics   ║
+║ 4. Export all logs      ║
+║ 5. Export group logs    ║
+║ 6. Export specific logs ║
+║ 7. Show README          ║
+║ 8. Show LICENSE         ║
+║ 9. Show ABOUT           ║
+║ 0. Exit                 ║
 ╚═════════════════════════╝
 "@
 	$menuInput = $null
@@ -33,7 +34,7 @@
 		$menuInput = Read-Host "Input"
 		
 	}
-	while ($menuInput -notin 1..8)
+	while ($menuInput -notin 0..9)
 
 	return $menuInput
 }

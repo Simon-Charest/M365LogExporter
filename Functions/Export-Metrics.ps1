@@ -6,7 +6,7 @@ function Export-Metrics([string]$userIds, [string]$filePath, $recordTypes)
     [int]$resultSize = 1
     
     # Export header information
-    [string]$object = "Fetching log count between $($startDate) and $($endDate) (UTC), for $(Get-Users $userIds)..."
+    [string]$object = "Fetching log count between $($startDate.ToString($Global:dateFormat)) (UTC) and $($endDate.ToString($Global:dateFormat)) (UTC), for $(Get-Users $userIds)..."
     Write-Host $object -ForegroundColor:"Yellow"
     Write-LogFile $object $filePath
 

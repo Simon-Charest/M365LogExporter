@@ -9,7 +9,6 @@ function Show-Content([string]$content = $null, [string]$path = $null, [boolean]
 
     if ($pause)
     {
-        Write-Host "Press any key to continue" -ForegroundColor:"Yellow"
-        [Console]::ReadKey()
+        Invoke-Pause
     }
 }
