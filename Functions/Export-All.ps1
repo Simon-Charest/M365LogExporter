@@ -21,8 +21,21 @@ function Export-All([DateTime]$startDate, [DateTime]$endDate, [string]$dateForma
             $resultCount = ($results | Measure-Object).Count
             $estimatedCount = Get-ResultCount $results
 
+            # Lowering time interval
+            if ($resultCount -ge $resultSize)
+            {
+                $currentMinutes = [int]($currentMinutes / 2)
+                Write-Host "Temporarily lowering of the time interval to $($currentMinutes) minutes." -ForegroundColor:"Yellow"
+            }
+
+            # Refetching the same interval
+            elseif ($resultCount -ne $estimatedCount)
+            {
+                Write-Host "The result counts do not match: refetching the same interval." -ForegroundColor:"Red"
+            }
+
             # If the results are OK
-            if ($resultCount -lt $resultSize -and $resultCount -eq $estimatedCount)
+            else
             {
                 # Converting results from JSON to object
                 $auditData = $results |
@@ -49,15 +62,8 @@ function Export-All([DateTime]$startDate, [DateTime]$endDate, [string]$dateForma
                     Write-Host "Resetting time interval to $($currentMinutes) minutes." -ForegroundColor:"Yellow"
                 }
             }
-
-            # Lowering time interval
-            elseif ($resultCount -ge $resultSize)
-            {
-                $currentMinutes = [int]($currentMinutes / 2)
-                Write-Host "Temporarily lowering of the time interval to $($currentMinutes) minutes." -ForegroundColor:"Yellow"
-            }
         }
-        while (!($resultCount -lt $resultSize -and $resultCount -eq $estimatedCount))
+        while ($resultCount -ge $resultSize -or $resultCount -ne $estimatedCount)
     }
     while ($startDate -lt $endDate)
 }
