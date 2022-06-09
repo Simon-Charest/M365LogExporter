@@ -21,9 +21,9 @@ function Export-All([DateTime]$startDate, [DateTime]$endDate, [string]$dateForma
             $resultCount = ($results | Measure-Object).Count
             $estimatedCount = Get-ResultCount $results
 
-            if ($resultCount -ge $resultSize -or $resultCount -ne $estimatedCount)
+            # If the results are incorrect
+            if (($resultCount -ge $resultSize) -or ($resultCount -ne $estimatedCount))
             {
-                # Refetching the same interval
                 if ($resultCount -ne $estimatedCount)
                 {
                     Write-Host "The result counts do not match." -ForegroundColor:$Global:errorColor
@@ -34,7 +34,7 @@ function Export-All([DateTime]$startDate, [DateTime]$endDate, [string]$dateForma
                 Write-Host "Temporarily lowering of the time interval to $($currentMinutes) minutes." -ForegroundColor:$Global:warningColor
             }
 
-            # If the results are OK
+            # If the results are correct
             else
             {
                 # Converting results from JSON to object
@@ -56,14 +56,14 @@ function Export-All([DateTime]$startDate, [DateTime]$endDate, [string]$dateForma
                 $startDate = $startDate.AddMinutes($currentMinutes)
 
                  # Resetting time interval
-                if ($currentMinutes -ne $minutes -and $resultCount -lt [int]($resultSize / 5))
+                if (($currentMinutes -ne $minutes) -and ($resultCount -lt [int]($resultSize / 5)))
                 {
                     $currentMinutes = $minutes
                     Write-Host "Resetting time interval to $($currentMinutes) minutes." -ForegroundColor:$Global:informationColor
                 }
             }
         }
-        while ($resultCount -ge $resultSize -or $resultCount -ne $estimatedCount)
+        while (($resultCount -ge $resultSize) -or ($resultCount -ne $estimatedCount))
     }
     while ($startDate -lt $endDate)
 }
