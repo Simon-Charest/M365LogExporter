@@ -11,7 +11,7 @@ function Invoke-Menu([int]$menuInput)
 		{
 			Get-AdminAuditLogConfig |
 				Format-List UnifiedAuditLogIngestionEnabled
-			Write-Host "Press any key to continue" -ForegroundColor:"Yellow"
+			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
         	[Console]::ReadKey()
 		}
 		3
@@ -43,6 +43,6 @@ function Invoke-Menu([int]$menuInput)
 		7 { Show-Content $null "README.txt" $true }
 		8 { Show-Content $null "LICENSE.txt" $true }
 		9 { Show-Content $null "ABOUT.txt" $true }
-		0 { Write-Host "** DONE **" -ForegroundColor:"Green" }
+		0 { Write-Host "** DONE **" -ForegroundColor:$Global:successColor }
 	}
 }

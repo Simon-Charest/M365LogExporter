@@ -7,7 +7,7 @@ function Export-Metrics([string]$userIds, [string]$filePath, $recordTypes)
     
     # Export header information
     [string]$object = "Fetching log count between $($startDate.ToString($Global:dateFormat)) (UTC) and $($endDate.ToString($Global:dateFormat)) (UTC), for $(Get-Users $userIds)..."
-    Write-Host $object -ForegroundColor:"Yellow"
+    Write-Host $object -ForegroundColor:$Global:informationColor
     Write-LogFile $object $filePath
 
     # Fetch total result count
@@ -16,8 +16,8 @@ function Export-Metrics([string]$userIds, [string]$filePath, $recordTypes)
 
     # Export total result count
     $object = "Total: $($resultCount)"
-    Write-Host $object -ForegroundColor:"Yellow"
     Write-LogFile $object $filePath
+    Write-Host $object -ForegroundColor:$Global:successColor
     
     foreach ($recordType in $recordTypes)
     {
@@ -27,7 +27,7 @@ function Export-Metrics([string]$userIds, [string]$filePath, $recordTypes)
 
         # Export result count by record type
         $object = "$($recordType): $($resultCount)"
-            Write-Host $object -ForegroundColor:"Yellow"
             Write-LogFile $object $filePath
+            Write-Host $object -ForegroundColor:$Global:successColor
     }
 }

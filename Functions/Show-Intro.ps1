@@ -7,5 +7,5 @@ function Show-Intro()
 |_|  |_|___/\___/___/ |____\___/\__, | |___/_\_\ .__/\___/_|  \__\___|_|  
                                 |___/          |_|                        
 "@
-	Write-Host $intro -ForegroundColor:"Yellow" -BackgroundColor:"Black"
+	Write-Host $intro -ForegroundColor:$Global:informationColor -BackgroundColor:$Global:backgroundColor
 }

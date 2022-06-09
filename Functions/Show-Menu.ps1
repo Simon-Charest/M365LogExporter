@@ -22,13 +22,13 @@
 	{
 		if ($null -ne $menuInput)
 		{		
-			Write-Host "Unexpected input. Please try again." -ForegroundColor:"Red"
+			Write-Host "Unexpected input. Please try again." -ForegroundColor:$Global:errorColor
 			Write-Host
 		}
 
 		else
 		{
-			Write-Host $menu -ForegroundColor:"Gray" -BackgroundColor:"Black"
+			Write-Host $menu -ForegroundColor:$Global:informationColor -BackgroundColor:$Global:backgroundColor
 		}
 
 		$menuInput = Read-Host "Input"

@@ -6,7 +6,7 @@ function Get-EndDate()
     {
         if ($null -ne $inputDate)
         {
-            Write-Host "Unexpected input. Please try again." -ForegroundColor:"Red"
+            Write-Host "Unexpected input. Please try again." -ForegroundColor:$Global:errorColor
 			Write-Host
         }
 
@@ -21,7 +21,7 @@ function Get-EndDate()
     }
     while ($inputDate -isnot [DateTime])
 
-    [string]$dateString = Get-Date $inputDate -Format "yyyy-MM-dd HH:mm:ss"
+    [string]$dateString = Get-Date $inputDate -Format:"yyyy-MM-dd HH:mm:ss"
 
     return $dateString
 }
