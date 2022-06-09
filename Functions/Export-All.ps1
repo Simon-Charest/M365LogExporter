@@ -13,6 +13,7 @@ function Export-All([DateTime]$startDate, [DateTime]$endDate, [string]$dateForma
         {
             # Setting time interval
             [DateTime]$endDateInterval = $startDate.AddMinutes($currentMinutes).AddSeconds(-1)
+            [string]$interval = "$($startDate.ToString($dateFormat)) - $($endDateInterval.ToString($dateFormat))"
             
             # Fetching results
             $results = Search-UnifiedAuditLog -EndDate:$endDateInterval -StartDate:$startDate -ResultSize:$resultSize -UserIds:$userIds
@@ -20,18 +21,18 @@ function Export-All([DateTime]$startDate, [DateTime]$endDate, [string]$dateForma
             # Extracting result counts
             $resultCount = ($results | Measure-Object).Count
             $estimatedCount = Get-ResultCount $results
-
+            
             # If the results are incorrect
             if (($resultCount -ge $resultSize) -or ($resultCount -ne $estimatedCount))
             {
                 if ($resultCount -ne $estimatedCount)
                 {
-                    Write-Host "The result counts do not match." -ForegroundColor:$Global:errorColor
+                    Write-Host "$($interval) => The result counts do not match." -ForegroundColor:$Global:errorColor
                 }
 
                 # Lowering time interval
                 $currentMinutes = [int]($currentMinutes / 2)
-                Write-Host "Temporarily lowering of the time interval to $($currentMinutes) minutes." -ForegroundColor:$Global:warningColor
+                Write-Host "Temporarily lowering the time interval to $($currentMinutes) minutes." -ForegroundColor:$Global:warningColor
             }
 
             # If the results are correct
@@ -48,7 +49,7 @@ function Export-All([DateTime]$startDate, [DateTime]$endDate, [string]$dateForma
                     Export-Csv $data -Append -NoTypeInformation
 
                 # Writing metadata to log file
-                $object = "$($startDate.ToString($dateFormat)) - $($endDateInterval.ToString($dateFormat)) => $($resultCount)"
+                $object = "$($interval) => $($resultCount)"
                 Write-LogFile $object $metadata
                 Write-Host $object -ForegroundColor:$Global:successColor
 
@@ -59,7 +60,7 @@ function Export-All([DateTime]$startDate, [DateTime]$endDate, [string]$dateForma
                 if (($currentMinutes -ne $minutes) -and ($resultCount -lt [int]($resultSize / 5)))
                 {
                     $currentMinutes = $minutes
-                    Write-Host "Resetting time interval to $($currentMinutes) minutes." -ForegroundColor:$Global:informationColor
+                    Write-Host "Resetting the time interval to $($currentMinutes) minutes." -ForegroundColor:$Global:informationColor
                 }
             }
         }
