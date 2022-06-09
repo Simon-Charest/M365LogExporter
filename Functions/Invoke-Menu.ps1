@@ -36,13 +36,37 @@ function Invoke-Menu([int]$menuInput)
 		}
 		5
 		{
-			$userIds = Select-Users
-			Export-Group $userIds
+			Write-Host "In development" -ForegroundColor:$Global:warningColor
+			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
+        	[Console]::ReadKey()
 		}
-		6 { Export-Specific }
-		7 { Show-Content $null "README.txt" $true }
-		8 { Show-Content $null "LICENSE.txt" $true }
-		9 { Show-Content $null "ABOUT.txt" $true }
-		0 { Write-Host "** DONE **" -ForegroundColor:$Global:successColor }
+		6
+		{
+			Write-Host "In development" -ForegroundColor:$Global:warningColor
+			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
+        	[Console]::ReadKey()
+		}
+		7
+		{
+			Write-Host "In development" -ForegroundColor:$Global:warningColor
+			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
+        	[Console]::ReadKey()
+		}
+		8
+		{
+			Write-Host "In development" -ForegroundColor:$Global:warningColor
+			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
+        	[Console]::ReadKey()
+		}
+		9
+		{
+			Write-Host "In development" -ForegroundColor:$Global:warningColor
+			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
+        	[Console]::ReadKey()
+		}
+		10 { Show-Content $null "README.txt" $true }
+		11 { Show-Content $null "LICENSE.txt" $true }
+		12 { Show-Content $null "ABOUT.txt" $true }
+		13 { Write-Host "** DONE **" -ForegroundColor:$Global:successColor }
 	}
 }

@@ -18,7 +18,7 @@
 . ".\Functions\Show-Menu.ps1"
 . ".\Functions\Write-ToFile.ps1"
 
-[int]$Global:resultSize = 5000 # Maximum record count allowed, by Microsoft, per query, for each session
+[int]$Global:resultSize = 5000 # Maximum number of results, per page, allowed by Microsoft
 [string]$Global:dateFormat = "yyyy-MM-dd HH:mm:ss"
 [string]$Global:filenameDateFormat = "yyyy-MM-dd_HH-mm-ss"
 [string]$Global:exportDirectory = ".\Export\$(Get-Date -Format:$($Global:filenameDateFormat))"
@@ -46,7 +46,7 @@ function Invoke-Main()
 		$menuInput = Show-Menu
 		Invoke-Menu $menuInput
 	}
-	while ($menuInput -ne 0)
+	while ($menuInput -ne 13)
 }
 
 Invoke-Main

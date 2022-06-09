@@ -1,20 +1,23 @@
 ﻿function Show-Menu()
 {
 	$menu = @"
-╔═════════════════════════╗
-║    Main Menu            ║
-╟─────────────────────────╢
-║ 1. Change tenant        ║
-║ 2. Check log status     ║
-║ 3. Export log metrics   ║
-║ 4. Export all logs      ║
-║ 5. Export group logs    ║
-║ 6. Export specific logs ║
-║ 7. Show README          ║
-║ 8. Show LICENSE         ║
-║ 9. Show ABOUT           ║
-║ 0. Exit                 ║
-╚═════════════════════════╝
+╔═══════════════════════════╗
+║    Main Menu              ║
+╟───────────────────────────╢
+║ 1. Change tenant          ║
+║ 2. Check log status       ║
+║ 3. Export log metrics     ║
+║ 4. Export all logs        ║
+║ 5. Export Azure logs      ║
+║ 6. Export Exchange logs   ║
+║ 7. Export SharePoint logs ║
+║ 8. Export Skype logs      ║
+║ 9. Export specific logs   ║
+║ 10. Show README           ║
+║ 11. Show LICENSE          ║
+║ 12. Show ABOUT            ║
+║ 13. Exit                  ║
+╚═══════════════════════════╝
 "@
 	$menuInput = $null
 
@@ -33,7 +36,7 @@
 		$menuInput = Read-Host "Input"
 		
 	}
-	while ($menuInput -notin 0..9)
+	while ($menuInput -notin 0..13)
 
 	return $menuInput
 }
