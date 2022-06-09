@@ -23,40 +23,100 @@ function Invoke-Menu([int]$menuInput)
 		{
 			[DateTime]$startDate = Get-StartDate
 			[DateTime]$endDate = Get-EndDate
+			[string]$userIds = Select-Users
 			$minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
 		
 			if ([string]::IsNullOrWhiteSpace($minutes))
 			{
 				$minutes = 60
 			}
-
-			$userIds = Select-Users
-			Export-All $startDate $endDate $Global:dateFormat $minutes $Global:resultSize $userIds $Global:properties $Global:data $Global:metadata
+			
+			Export-All $endDate $startDate $null $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
 			Export-Hashes $Global:hashes
 		}
 		5
 		{
-			Write-Host "In development" -ForegroundColor:$Global:warningColor
-			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
-        	[Console]::ReadKey()
+			$recordTypes = @("AzureActiveDirectory","AzureActiveDirectoryAccountLogon","AzureActiveDirectoryStsLogon")
+			
+			[DateTime]$startDate = Get-StartDate
+			[DateTime]$endDate = Get-EndDate
+			[string]$userIds = Select-Users
+			$minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
+		
+			if ([string]::IsNullOrWhiteSpace($minutes))
+			{
+				$minutes = 60
+			}
+			
+			foreach ($recordType in $recordTypes)
+			{
+				Export-All $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+			}
+
+			Export-Hashes $Global:hashes
 		}
 		6
 		{
-			Write-Host "In development" -ForegroundColor:$Global:warningColor
-			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
-        	[Console]::ReadKey()
+			$recordTypes = @("ExchangeAdmin","ExchangeAggregatedOperation","ExchangeItem","ExchangeItemGroup","ExchangeItemAggregated","ComplianceDLPExchange","ComplianceSupervisionExchange","MipAutoLabelExchangeItem")
+			
+			[DateTime]$startDate = Get-StartDate
+			[DateTime]$endDate = Get-EndDate
+			[string]$userIds = Select-Users
+			$minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
+		
+			if ([string]::IsNullOrWhiteSpace($minutes))
+			{
+				$minutes = 60
+			}
+			
+			foreach ($recordType in $recordTypes)
+			{
+				Export-All $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+			}
+
+			Export-Hashes $Global:hashes
 		}
 		7
 		{
-			Write-Host "In development" -ForegroundColor:$Global:warningColor
-			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
-        	[Console]::ReadKey()
+			$recordTypes = @("ComplianceDLPSharePoint","SharePoint","SharePointFileOperation","SharePointSharingOperation","SharepointListOperation", "ComplianceDLPSharePointClassification","SharePointCommentOperation", "SharePointListItemOperation", "SharePointContentTypeOperation", "SharePointFieldOperation","MipAutoLabelSharePointItem","MipAutoLabelSharePointPolicyLocation")
+			
+			[DateTime]$startDate = Get-StartDate
+			[DateTime]$endDate = Get-EndDate
+			[string]$userIds = Select-Users
+			$minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
+		
+			if ([string]::IsNullOrWhiteSpace($minutes))
+			{
+				$minutes = 60
+			}
+			
+			foreach ($recordType in $recordTypes)
+			{
+				Export-All $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+			}
+
+			Export-Hashes $Global:hashes
 		}
 		8
 		{
-			Write-Host "In development" -ForegroundColor:$Global:warningColor
-			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
-        	[Console]::ReadKey()
+			$recordTypes = @("SkypeForBusinessCmd","SkypeForBusinessPSTNUsage","SkypeForBusinessUsersBlocked")
+			
+			[DateTime]$startDate = Get-StartDate
+			[DateTime]$endDate = Get-EndDate
+			[string]$userIds = Select-Users
+			$minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
+		
+			if ([string]::IsNullOrWhiteSpace($minutes))
+			{
+				$minutes = 60
+			}
+			
+			foreach ($recordType in $recordTypes)
+			{
+				Export-All $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+			}
+
+			Export-Hashes $Global:hashes
 		}
 		9
 		{

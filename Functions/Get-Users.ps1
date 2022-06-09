@@ -1,6 +1,6 @@
 function Get-Users($userIds)
 {
-    if ($userIds -eq "*")
+    if ($null -eq $userIds)
     {
         $users = "all users"
     }

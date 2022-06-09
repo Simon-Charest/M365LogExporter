@@ -4,7 +4,7 @@
 
 	if ([string]::IsNullOrWhiteSpace($userIds))
     {
-        $userIds = "*"
+        $userIds = $null
     }
 
 	return $userIds
