@@ -24,9 +24,9 @@ function Export-Specific()
 
     $ResetInterval = $IntervalMinutes
 
-    Write-LogFile "Start date provided by user: $StartDate"
-    Write-LogFile "End date provided by user: $EndDate"
-    Write-Logfile "Time Interval provided by user: $IntervalMinutes"
+    Write-ToFile "Start date provided by user: $StartDate"
+    Write-ToFile "End date provided by user: $EndDate"
+    Write-ToFile "Time Interval provided by user: $IntervalMinutes"
     
     echo ""
     Write-Host "----------------------------------------------------------------------------"
@@ -56,7 +56,7 @@ function Export-Specific()
         [DateTime]$CurrentStart = $StartDate
         [DateTime]$CurrentEnd = $EndDate
         Write-Host "Extracting:  $record"
-        Write-LogFile "Extracting:  $record"
+        Write-ToFile "Extracting:  $record"
         
         while ($true){
         $CurrentEnd = $CurrentStart.AddMinutes($IntervalMinutes)
@@ -82,7 +82,7 @@ function Export-Specific()
                         $CurrentEnd = $CurrentStart.AddMinutes($IntervalMinutes)}}
                     
                 else{
-                    Write-LogFile "INFO: Retrieving audit logs between $($CurrentStart) and $($CurrentEnd)"
+                    Write-ToFile "INFO: Retrieving audit logs between $($CurrentStart) and $($CurrentEnd)"
                     Write-Host "INFO: Retrieving audit logs between $($CurrentStart) and $($CurrentEnd)" -ForegroundColor green
                     $Intervalmin = $IntervalMinutes
                     $CurrentStart = $CurrentStart.AddMinutes($Intervalmin)
@@ -111,7 +111,7 @@ function Export-Specific()
             $CurrentEnd = $CurrentEnd.AddMinutes($IntervalMinutes)}
         
         ELSEIF($CurrentEnd -eq $EndDate){
-            Write-LogFile "INFO: Retrieving audit logs between $($CurrentStart) and $($CurrentEnd)"
+            Write-ToFile "INFO: Retrieving audit logs between $($CurrentStart) and $($CurrentEnd)"
             Write-Host "INFO: Retrieving audit logs between $($CurrentStart) and $($CurrentEnd)" -ForegroundColor green
             
             [Array]$results = Search-UnifiedAuditLog -StartDate $CurrentStart -EndDate $CurrentEnd -RecordType $record -UserIds $script:Userstoextract -SessionID $SessionID -SessionCommand ReturnNextPreviewPage -ResultSize $ResultSize
@@ -123,7 +123,7 @@ function Export-Specific()
         }
         $CurrentTries = 0
         $SessionID = [DateTime]::Now.ToString().Replace('/', '_')
-        Write-LogFile "INFO: Retrieving audit logs between $($CurrentStart) and $($CurrentEnd)"
+        Write-ToFile "INFO: Retrieving audit logs between $($CurrentStart) and $($CurrentEnd)"
         Write-Host "INFO: Retrieving audit logs between $($CurrentStart) and $($CurrentEnd)" -ForegroundColor green
         $CurrentCount = 0
         while ($true){
@@ -136,7 +136,7 @@ function Export-Specific()
                     $CurrentTries = $CurrentTries + 1
                     continue}
                 else{
-                    Write-LogFile "WARNING: Empty data set returned between $($CurrentStart) and $($CurrentEnd). Retry count reached. Moving forward!"
+                    Write-ToFile "WARNING: Empty data set returned between $($CurrentStart) and $($CurrentEnd). Retry count reached. Moving forward!"
                     break}}
                     
             $CurrentTotal = $results[0].ResultCount
@@ -145,7 +145,7 @@ function Export-Specific()
             if ($CurrentTotal -eq $results[$results.Count - 1].ResultIndex){
                 $message = "INFO: Successfully retrieved $($CurrentCount) records out of total $($CurrentTotal) for the current time range. Moving on!"
                 $results | epcsv $OutputFile -NoTypeInformation -Append
-                Write-LogFile $message
+                Write-ToFile $message
                 Write-host $message
                 break}}
             

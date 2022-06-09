@@ -23,7 +23,6 @@
 		if ($null -ne $menuInput)
 		{		
 			Write-Host "Unexpected input. Please try again." -ForegroundColor:$Global:errorColor
-			Write-Host
 		}
 
 		else

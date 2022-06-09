@@ -7,7 +7,6 @@ function Get-StartDate()
         if ($null -ne $inputDate)
         {
             Write-Host "Unexpected input. Please try again." -ForegroundColor:$Global:errorColor
-			Write-Host
         }
 
         $inputDate = Read-Host "Enter start date (format: yyyy-MM-dd) or leave empty for 90 days ago"

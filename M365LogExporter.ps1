@@ -16,7 +16,7 @@
 . ".\Functions\Show-Content.ps1"
 . ".\Functions\Show-Intro.ps1"
 . ".\Functions\Show-Menu.ps1"
-. ".\Functions\Write-LogFile.ps1"
+. ".\Functions\Write-ToFile.ps1"
 
 [int]$Global:resultSize = 5000 # Maximum record count allowed, by Microsoft, per query, for each session
 [string]$Global:dateFormat = "yyyy-MM-dd HH:mm:ss"

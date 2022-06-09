@@ -6,18 +6,14 @@ function Export-Metrics([string]$userIds, [string]$filePath, $recordTypes)
     [int]$resultSize = 1
     
     # Export header information
-    [string]$object = "Fetching log count between $($startDate.ToString($Global:dateFormat)) (UTC) and $($endDate.ToString($Global:dateFormat)) (UTC), for $(Get-Users $userIds)..."
-    Write-Host $object -ForegroundColor:$Global:informationColor
-    Write-LogFile $object $filePath
+    Write-ToFile "Fetching log count between $($startDate.ToString($Global:dateFormat)) (UTC) and $($endDate.ToString($Global:dateFormat)) (UTC), for $(Get-Users $userIds)..." $filePath $Global:informationColor
 
     # Fetch total result count
     $results = Search-UnifiedAuditLog -EndDate:$EndDate -StartDate:$StartDate -ResultSize:$resultSize -UserIds:$userIds
     [int]$resultCount = Get-ResultCount $results
 
     # Export total result count
-    $object = "Total: $($resultCount)"
-    Write-LogFile $object $filePath
-    Write-Host $object -ForegroundColor:$Global:successColor
+    Write-ToFile "Total: $($resultCount)" $filePath $Global:successColor
     
     foreach ($recordType in $recordTypes)
     {
@@ -26,8 +22,6 @@ function Export-Metrics([string]$userIds, [string]$filePath, $recordTypes)
         $resultCount = Get-ResultCount $results
 
         # Export result count by record type
-        $object = "$($recordType): $($resultCount)"
-            Write-LogFile $object $filePath
-            Write-Host $object -ForegroundColor:$Global:successColor
+        Write-ToFile "$($recordType): $($resultCount)" $filePath $Global:successColor
     }
 }
