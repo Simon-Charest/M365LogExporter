@@ -17,7 +17,7 @@ function Invoke-Menu([int]$menuInput)
 		3
 		{
 			$userIds = Select-Users
-			Export-Metrics $userIds $Global:metrics $Global:recordTypes
+			Export-Metrics $Global:recordTypes $userIds $Global:metrics
 		}
 		4
 		{
@@ -31,13 +31,12 @@ function Invoke-Menu([int]$menuInput)
 				$minutes = 60
 			}
 			
-			Export-All $endDate $startDate $null $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+			Export-Logs $endDate $startDate $null $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor $Global:debug
 			Export-Hashes $Global:hashes
 		}
 		5
 		{
 			$recordTypes = @("AzureActiveDirectory","AzureActiveDirectoryAccountLogon","AzureActiveDirectoryStsLogon")
-			
 			[DateTime]$startDate = Get-StartDate
 			[DateTime]$endDate = Get-EndDate
 			[string]$userIds = Select-Users
@@ -50,7 +49,7 @@ function Invoke-Menu([int]$menuInput)
 			
 			foreach ($recordType in $recordTypes)
 			{
-				Export-All $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+				Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
 			}
 
 			Export-Hashes $Global:hashes
@@ -58,7 +57,6 @@ function Invoke-Menu([int]$menuInput)
 		6
 		{
 			$recordTypes = @("ExchangeAdmin","ExchangeAggregatedOperation","ExchangeItem","ExchangeItemGroup","ExchangeItemAggregated","ComplianceDLPExchange","ComplianceSupervisionExchange","MipAutoLabelExchangeItem")
-			
 			[DateTime]$startDate = Get-StartDate
 			[DateTime]$endDate = Get-EndDate
 			[string]$userIds = Select-Users
@@ -71,7 +69,7 @@ function Invoke-Menu([int]$menuInput)
 			
 			foreach ($recordType in $recordTypes)
 			{
-				Export-All $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+				Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
 			}
 
 			Export-Hashes $Global:hashes
@@ -79,7 +77,6 @@ function Invoke-Menu([int]$menuInput)
 		7
 		{
 			$recordTypes = @("ComplianceDLPSharePoint","SharePoint","SharePointFileOperation","SharePointSharingOperation","SharepointListOperation", "ComplianceDLPSharePointClassification","SharePointCommentOperation", "SharePointListItemOperation", "SharePointContentTypeOperation", "SharePointFieldOperation","MipAutoLabelSharePointItem","MipAutoLabelSharePointPolicyLocation")
-			
 			[DateTime]$startDate = Get-StartDate
 			[DateTime]$endDate = Get-EndDate
 			[string]$userIds = Select-Users
@@ -92,7 +89,7 @@ function Invoke-Menu([int]$menuInput)
 			
 			foreach ($recordType in $recordTypes)
 			{
-				Export-All $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+				Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
 			}
 
 			Export-Hashes $Global:hashes
@@ -100,7 +97,6 @@ function Invoke-Menu([int]$menuInput)
 		8
 		{
 			$recordTypes = @("SkypeForBusinessCmd","SkypeForBusinessPSTNUsage","SkypeForBusinessUsersBlocked")
-			
 			[DateTime]$startDate = Get-StartDate
 			[DateTime]$endDate = Get-EndDate
 			[string]$userIds = Select-Users
@@ -113,7 +109,7 @@ function Invoke-Menu([int]$menuInput)
 			
 			foreach ($recordType in $recordTypes)
 			{
-				Export-All $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:data $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+				Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
 			}
 
 			Export-Hashes $Global:hashes

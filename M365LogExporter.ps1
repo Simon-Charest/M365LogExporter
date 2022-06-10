@@ -1,9 +1,7 @@
 . ".\Functions\Connect-ExchangeOnlineOnce.ps1"
-. ".\Functions\Export-All.ps1"
-. ".\Functions\Export-Group.ps1"
 . ".\Functions\Export-Hashes.ps1"
+. ".\Functions\Export-Logs.ps1"
 . ".\Functions\Export-Metrics.ps1"
-. ".\Functions\Export-Specific.ps1"
 . ".\Functions\Get-EndDate.ps1"
 . ".\Functions\Get-ResultCount.ps1"
 . ".\Functions\Get-StartDate.ps1"
@@ -24,7 +22,8 @@
 [string]$Global:exportDirectory = ".\Export\$(Get-Date -Format:$($Global:filenameDateFormat))"
 [string]$Global:metrics = "$($exportDirectory)\metrics.txt"
 [string]$Global:metadata = "$($exportDirectory)\metadata.txt"
-[string]$Global:data = "$($exportDirectory)\data.csv"
+[string]$Global:jsonData = "$($exportDirectory)\data.json"
+[string]$Global:csvData = "$($exportDirectory)\data.csv"
 [string]$Global:hashes = "$($exportDirectory)\hashes.csv"
 $Global:recordTypes = @("ExchangeAdmin","ExchangeItem","ExchangeItemGroup","SharePoint","SyntheticProbe","SharePointFileOperation","OneDrive","AzureActiveDirectory","AzureActiveDirectoryAccountLogon","DataCenterSecurityCmdlet","ComplianceDLPSharePoint","Sway","ComplianceDLPExchange","SharePointSharingOperation","AzureActiveDirectoryStsLogon","SkypeForBusinessPSTNUsage","SkypeForBusinessUsersBlocked","SecurityComplianceCenterEOPCmdlet","ExchangeAggregatedOperation","PowerBIAudit","CRM","Yammer","SkypeForBusinessCmdlets","Discovery","MicrosoftTeams","ThreatIntelligence","MailSubmission","MicrosoftFlow","AeD","MicrosoftStream","ComplianceDLPSharePointClassification","ThreatFinder","Project","SharePointListOperation","SharePointCommentOperation","DataGovernance","Kaizala","SecurityComplianceAlerts","ThreatIntelligenceUrl","SecurityComplianceInsights","MIPLabel","WorkplaceAnalytics","PowerAppsApp","PowerAppsPlan","ThreatIntelligenceAtpContent","LabelContentExplorer","TeamsHealthcare","ExchangeItemAggregated","HygieneEvent","DataInsightsRestApiAudit","InformationBarrierPolicyApplication","SharePointListItemOperation","SharePointContentTypeOperation","SharePointFieldOperation","MicrosoftTeamsAdmin","HRSignal","MicrosoftTeamsDevice","MicrosoftTeamsAnalytics","InformationWorkerProtection","Campaign","DLPEndpoint","AirInvestigation","Quarantine","MicrosoftForms","ApplicationAudit","ComplianceSupervisionExchange","CustomerKeyServiceEncryption","OfficeNative","MipAutoLabelSharePointItem","MipAutoLabelSharePointPolicyLocation","MicrosoftTeamsShifts","MipAutoLabelExchangeItem","CortanaBriefing","Search","WDATPAlerts","MDATPAudit")
 $Global:properties = @("CreationTime","Workload","RecordType","Operation","UserId","UserType","DeviceProperties","UserAgent","ExtendedProperties","ClientIP","MailboxOwnerUPN","ClientInfoString","AffectedItems","Parameters","Policy","Subject","Verdict","PolicyAction","SiteUrl","SourceFileName")
@@ -33,6 +32,7 @@ $Global:successColor = "Green"
 $Global:warningColor = "Yellow"
 $Global:errorColor = "Red"
 $Global:backgroundColor = "Black"
+$Global:debug = $false
 
 function Invoke-Main()
 {

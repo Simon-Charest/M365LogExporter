@@ -1,10 +1,11 @@
-function Export-All
+function Export-Logs
 (
-    [DateTime]$endDate = $null, [DateTime]$startDate = $null, [string]$recordType = $null, [int]$resultSize = 5000, [string]$userIds = $null,
+    [DateTime]$endDate = $null, [DateTime]$startDate = $null, $recordType = $null, [int]$resultSize = 5000, [string]$userIds = $null,
     [string]$properties = @("CreationTime","Workload","RecordType","Operation","UserId","UserType","DeviceProperties","UserAgent","ExtendedProperties","ClientIP","MailboxOwnerUPN","ClientInfoString","AffectedItems","Parameters","Policy","Subject","Verdict","PolicyAction","SiteUrl","SourceFileName"),
     [int]$minutes = 60, [string]$dateFormat = "yyyy-MM-dd HH:mm:ss",
-    [string]$data = "data.csv", [string]$metadata = "metadata.txt",
-    [string]$informationColor = "White", [string]$successColor = "Green", [string]$warningColor = "Yellow", [string]$errorColor = "Red"
+    [string]$jsonData = "data.json", [string]$csvData = "data.csv", [string]$metadata = "metadata.txt",
+    [string]$informationColor = "White", [string]$successColor = "Green", [string]$warningColor = "Yellow", [string]$errorColor = "Red",
+    [bool]$debug = $false
 )
 {
     # Setting default values
@@ -32,8 +33,55 @@ function Export-All
             [string]$interval = "$($startDate.ToString($dateFormat)) - $($endDateInterval.ToString($dateFormat))"
             
             # Fetching results
-            $results = Search-UnifiedAuditLog -EndDate:$endDateInterval -StartDate:$startDate -RecordType:$recordType -ResultSize:$resultSize -UserIds:$userIds
-            
+            if ($debug -eq $true)
+            {
+                $results =
+                @(
+                    [pscustomobject]@{
+                        RunspaceId = "RunspaceId";
+                        RecordType = "RecordType";
+                        CreationDate = "2022-06-10T14:10:00";
+                        UserIds = "test@test.local";
+                        Operations = "FileDeleted";
+                        ResultIndex = 1;
+                        ResultCount = 1;
+                        Identity = "test";
+                        IsValid = $true;
+                        ObjectState = "Unchanged";
+                        AuditData =
+                        [pscustomobject]@{
+                            SourceLocationType = 1;
+                            Platform = 1;
+                            Application = "RuntimeBroker.exe";
+                            FileExtension = "txt";
+                            DeviceName = "test.test.local";
+                            MDATPDeviceId = "7b17070ac2891e24269e626e51747ef63e83d338";
+                            FileSize = 0;
+                            FileType = "TEXT";
+                            Hidden = $false;
+                            ObjectId = "C:\\Users\\user1\\test.txt";
+                            UserId = "mdove@threekingdoms.local";
+                            ClientIP = "20.151.224.185";
+                            Id = "da61484b-9ded-46e7-b996-436b1f4c25ea";
+                            RecordType = 63;
+                            CreationTime = "2022-06-10T14:10:00";
+                            Operation = "FileDeleted";
+                            OrganizationId = "d06dbdaf-cc36-4812-922d-000000000000";
+                            UserType = 0;
+                            UserKey = "test@test.local";
+                            Workload = "Endpoint";
+                            Version = 1;
+                            Scope = 1;
+                        }
+                    }
+                )
+            }
+
+            else
+            {
+                $results = Search-UnifiedAuditLog -EndDate:$endDateInterval -StartDate:$startDate -RecordType:$recordType -ResultSize:$resultSize -UserIds:$userIds
+            }
+
             # Extracting result counts
             $resultCount = ($results | Measure-Object).Count
             $estimatedCount = Get-ResultCount $results
@@ -59,10 +107,13 @@ function Export-All
                     Select-Object -ExpandProperty:"AuditData" |
                     ConvertFrom-Json
 
+                # Exporting object to JSON
+                $auditData | Out-File $jsonData -Append
+
                 # Exporting object to CSV
                 $auditData |
                     Select-Object $properties |
-                    Export-Csv $data -Append -NoTypeInformation
+                    Export-Csv $csvData -Append -NoTypeInformation
 
                 # Writing metadata to log file
                 Write-ToFile "$($interval) => $($resultCount)" $metadata $successColor
