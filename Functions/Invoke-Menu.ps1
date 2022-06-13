@@ -37,82 +37,22 @@ function Invoke-Menu([int]$menuInput)
 		5
 		{
 			$recordTypes = @("AzureActiveDirectory","AzureActiveDirectoryAccountLogon","AzureActiveDirectoryStsLogon")
-			[DateTime]$startDate = Get-StartDate
-			[DateTime]$endDate = Get-EndDate
-			[string]$userIds = Select-Users
-			$minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
-		
-			if ([string]::IsNullOrWhiteSpace($minutes))
-			{
-				$minutes = 60
-			}
-			
-			foreach ($recordType in $recordTypes)
-			{
-				Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
-			}
-
-			Export-Hashes $Global:hashes
+			Export-ByRecordset $recordTypes
 		}
 		6
 		{
 			$recordTypes = @("ExchangeAdmin","ExchangeAggregatedOperation","ExchangeItem","ExchangeItemGroup","ExchangeItemAggregated","ComplianceDLPExchange","ComplianceSupervisionExchange","MipAutoLabelExchangeItem")
-			[DateTime]$startDate = Get-StartDate
-			[DateTime]$endDate = Get-EndDate
-			[string]$userIds = Select-Users
-			$minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
-		
-			if ([string]::IsNullOrWhiteSpace($minutes))
-			{
-				$minutes = 60
-			}
-			
-			foreach ($recordType in $recordTypes)
-			{
-				Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
-			}
-
-			Export-Hashes $Global:hashes
+			Export-ByRecordset $recordTypes
 		}
 		7
 		{
 			$recordTypes = @("ComplianceDLPSharePoint","SharePoint","SharePointFileOperation","SharePointSharingOperation","SharepointListOperation", "ComplianceDLPSharePointClassification","SharePointCommentOperation", "SharePointListItemOperation", "SharePointContentTypeOperation", "SharePointFieldOperation","MipAutoLabelSharePointItem","MipAutoLabelSharePointPolicyLocation")
-			[DateTime]$startDate = Get-StartDate
-			[DateTime]$endDate = Get-EndDate
-			[string]$userIds = Select-Users
-			$minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
-		
-			if ([string]::IsNullOrWhiteSpace($minutes))
-			{
-				$minutes = 60
-			}
-			
-			foreach ($recordType in $recordTypes)
-			{
-				Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
-			}
-
-			Export-Hashes $Global:hashes
+			Export-ByRecordset $recordTypes
 		}
 		8
 		{
 			$recordTypes = @("SkypeForBusinessCmd","SkypeForBusinessPSTNUsage","SkypeForBusinessUsersBlocked")
-			[DateTime]$startDate = Get-StartDate
-			[DateTime]$endDate = Get-EndDate
-			[string]$userIds = Select-Users
-			$minutes = Read-Host "Enter time interval in minutes or leave empty for 60"
-		
-			if ([string]::IsNullOrWhiteSpace($minutes))
-			{
-				$minutes = 60
-			}
-			
-			foreach ($recordType in $recordTypes)
-			{
-				Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
-			}
-
-			Export-Hashes $Global:hashes
+			Export-ByRecordset $recordTypes
 		}
 		9
 		{

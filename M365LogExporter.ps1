@@ -1,4 +1,5 @@
 . ".\Functions\Connect-ExchangeOnlineOnce.ps1"
+. ".\Functions\Export-ByRecordset.ps1"
 . ".\Functions\Export-Hashes.ps1"
 . ".\Functions\Export-Logs.ps1"
 . ".\Functions\Export-Metrics.ps1"

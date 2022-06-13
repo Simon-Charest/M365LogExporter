@@ -20,8 +20,13 @@ function Export-Logs
     }
 
     [int]$currentMinutes = $minutes
-    Write-ToFile "Fetching all logs between $($startDate.ToString($dateFormat)) (UTC) and $($endDate.ToString($dateFormat)) (UTC), by $($currentMinutes) minutes intervals, for $(Get-Users $userIds)..." $metadata $informationColor 
-
+    Write-ToFile "Fetching logs..." $metadata $informationColor
+    Write-ToFile "Start (UTC): $($startDate.ToString($dateFormat))" $metadata $informationColor
+    Write-ToFile "End (UTC): $($endDate.ToString($dateFormat))" $metadata $informationColor
+    Write-ToFile "Interval (minutes): $($currentMinutes)" $metadata $informationColor
+    Write-ToFile "Record type: $($recordType)" $metadata $informationColor
+    Write-ToFile "User ids: $(Get-Users $userIds)" $metadata $informationColor
+    
     # Loop on each time interval, until there is no more data to fetch
     do
     {
@@ -37,41 +42,40 @@ function Export-Logs
             {
                 $results =
                 @(
-                    [pscustomobject]@{
-                        RunspaceId = "RunspaceId";
-                        RecordType = "RecordType";
-                        CreationDate = "2022-06-10T14:10:00";
-                        UserIds = "test@test.local";
-                        Operations = "FileDeleted";
-                        ResultIndex = 1;
-                        ResultCount = 1;
-                        Identity = "test";
-                        IsValid = $true;
-                        ObjectState = "Unchanged";
-                        AuditData =
-                        [pscustomobject]@{
-                            SourceLocationType = 1;
-                            Platform = 1;
-                            Application = "RuntimeBroker.exe";
-                            FileExtension = "txt";
-                            DeviceName = "test.test.local";
-                            MDATPDeviceId = "7b17070ac2891e24269e626e51747ef63e83d338";
-                            FileSize = 0;
-                            FileType = "TEXT";
-                            Hidden = $false;
-                            ObjectId = "C:\\Users\\user1\\test.txt";
-                            UserId = "mdove@threekingdoms.local";
-                            ClientIP = "20.151.224.185";
-                            Id = "da61484b-9ded-46e7-b996-436b1f4c25ea";
-                            RecordType = 63;
-                            CreationTime = "2022-06-10T14:10:00";
-                            Operation = "FileDeleted";
-                            OrganizationId = "d06dbdaf-cc36-4812-922d-000000000000";
-                            UserType = 0;
-                            UserKey = "test@test.local";
-                            Workload = "Endpoint";
-                            Version = 1;
-                            Scope = 1;
+                    [PSCustomObject]@{
+                        RunspaceId = 'RunspaceId'
+                        RecordType = 'RecordType'
+                        CreationDate = '2022-06-10T14:10:00'
+                        UserIds = 'test@test.local'
+                        Operations = 'FileDeleted'
+                        ResultIndex = 1
+                        ResultCount = 1
+                        Identity = 'test'
+                        IsValid = $true
+                        ObjectState = 'Unchanged'
+                        AuditData = [PSCustomObject]@{
+                            SourceLocationType = 1
+                            Platform = 1
+                            Application = 'RuntimeBroker.exe'
+                            FileExtension = 'txt'
+                            DeviceName = 'test.test.local'
+                            MDATPDeviceId = '7b17070ac2891e24269e626e51747e0000000000'
+                            FileSize = 0
+                            FileType = 'TEXT'
+                            Hidden = $false
+                            ObjectId = 'C:\\Users\\user1\\test.txt'
+                            UserId = 'test@test.local'
+                            ClientIP = '192.168.224.185'
+                            Id = 'da61484b-9ded-46e7-b996-000000000000'
+                            RecordType = 63
+                            CreationTime = '2022-06-10T14:10:00'
+                            Operation = 'FileDeleted'
+                            OrganizationId = 'd06dbdaf-cc36-4812-922d-000000000000'
+                            UserType = 0
+                            UserKey = 'test@test.local'
+                            Workload = 'Endpoint'
+                            Version = 1
+                            Scope = 1
                         }
                     }
                 )
@@ -102,13 +106,19 @@ function Export-Logs
             # If the results are correct
             else
             {
-                # Converting results from JSON to object
                 $auditData = $results |
-                    Select-Object -ExpandProperty:"AuditData" |
-                    ConvertFrom-Json
+                    Select-Object -ExpandProperty:"AuditData"
+
+                # Converting results from JSON to object
+                if ($debug -ne $true)
+                {
+                    $auditData = $auditData |
+                        ConvertFrom-Json
+                }
 
                 # Exporting object to JSON
-                $auditData | Out-File $jsonData -Append
+                $auditData |
+                    Out-File $jsonData -Append
 
                 # Exporting object to CSV
                 $auditData |

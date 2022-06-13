@@ -1,14 +1,9 @@
 function Get-Users($userIds)
 {
-    if ($null -eq $userIds)
+    if ([string]::IsNullOrWhiteSpace($userIds))
     {
-        $users = "all users"
+        return "all users"
     }
 
-    else
-    {
-        $users = "users $($userIds)"
-    }
-
-    return $users
+    return $userIds
 }
