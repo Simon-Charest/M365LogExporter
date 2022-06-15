@@ -1,5 +1,5 @@
-function Invoke-Pause($object = "Press any key to continue", $foregroundColor = $Global:informationColor)
+function Invoke-Pause([Object]$object = "Press any key to continue", [string]$foregroundColor = $Global:informationColor)
 {
     Write-Host $object -ForegroundColor:$foregroundColor
-    [Console]::ReadKey()
+    [Console]::ReadKey("NoEcho,IncludeKeyDown")
 }

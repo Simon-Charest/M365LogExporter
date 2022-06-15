@@ -11,12 +11,11 @@ function Invoke-Menu([int]$menuInput)
 		{
 			Get-AdminAuditLogConfig |
 				Format-List UnifiedAuditLogIngestionEnabled
-			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
-        	[Console]::ReadKey()
+			Invoke-Pause
 		}
 		3
 		{
-			$userIds = Select-Users
+			[string]$userIds = Select-Users
 			Export-Metrics $Global:recordTypes $userIds $Global:metrics
 		}
 		4
@@ -31,7 +30,7 @@ function Invoke-Menu([int]$menuInput)
 				$minutes = 60
 			}
 			
-			Export-Logs $endDate $startDate $null $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:jsonData $Global:csvData $Global:metadata $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor $Global:debug
+			Export-Logs $endDate $startDate $null $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:metadata $Global:data $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
 			Export-Hashes $Global:hashes
 		}
 		5
@@ -57,8 +56,7 @@ function Invoke-Menu([int]$menuInput)
 		9
 		{
 			Write-Host "In development" -ForegroundColor:$Global:warningColor
-			Write-Host "Press any key to continue" -ForegroundColor:$Global:informationColor
-        	[Console]::ReadKey()
+			Invoke-Pause
 		}
 		10 { Show-Content $null "README.txt" $true }
 		11 { Show-Content $null "LICENSE.txt" $true }

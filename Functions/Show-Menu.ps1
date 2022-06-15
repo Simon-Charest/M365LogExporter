@@ -1,6 +1,6 @@
 ﻿function Show-Menu()
 {
-	$menu = @"
+	[string]$menu = @"
 ╔═══════════════════════════╗
 ║    Main Menu              ║
 ╟───────────────────────────╢
@@ -19,11 +19,11 @@
 ║ 13. Exit                  ║
 ╚═══════════════════════════╝
 "@
-	$menuInput = $null
+	[int]$menuInput = -1
 
 	do
 	{
-		if ($null -ne $menuInput)
+		if ($menuInput -gt -1)
 		{		
 			Write-Host "Unexpected input. Please try again." -ForegroundColor:$Global:errorColor
 		}

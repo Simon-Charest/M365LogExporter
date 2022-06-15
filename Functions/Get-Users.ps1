@@ -1,4 +1,4 @@
-function Get-Users($userIds)
+function Get-Users([string]$userIds)
 {
     if ([string]::IsNullOrWhiteSpace($userIds))
     {
