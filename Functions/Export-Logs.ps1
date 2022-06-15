@@ -1,7 +1,6 @@
 function Export-Logs
 (
     [DateTime]$endDate = $null, [DateTime]$startDate = $null, $recordType = $null, [int]$resultSize = 5000, $userIds = $null,
-    [string[]]$properties = $null,
     [int]$minutes = 60, [string]$dateFormat = "yyyy-MM-dd HH:mm:ss",
     [string]$metadata = "metadata.txt", [string]$data = "data.csv",
     [string]$informationColor = "White", [string]$successColor = "Green", [string]$warningColor = "Yellow", [string]$errorColor = "Red"
@@ -88,18 +87,8 @@ function Export-Logs
             else
             {
                 # Exporting object to CSV
-                if ($null -ne $properties)
-                {
-                    $results |
-                        Select-Object $properties |
-                        Export-Csv -Path:$data -Append -NoTypeInformation
-                }
-
-                else
-                {
-                    $results |
-                        Export-Csv -Path:$data -Append -NoTypeInformation
-                }
+                $results |
+                    Export-Csv -Path:$data -Append -NoTypeInformation
 
                 # Writing metadata to log file
                 Write-ToFile "$($interval) => $($resultCount)" $metadata $successColor

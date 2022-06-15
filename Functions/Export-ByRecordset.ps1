@@ -12,7 +12,7 @@ function Export-ByRecordset($recordTypes)
 
 	foreach ($recordType in $recordTypes)
 	{
-		Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:metadata $Global:data $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+		Export-Logs $endDate $startDate $recordType $Global:resultSize $userIds $minutes $Global:dateFormat $Global:metadata $Global:data $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
 	}
 
 	Export-Hashes $Global:hashes

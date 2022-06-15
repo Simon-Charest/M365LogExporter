@@ -30,7 +30,7 @@ function Invoke-Menu([int]$menuInput)
 				$minutes = 60
 			}
 			
-			Export-Logs $endDate $startDate $null $Global:resultSize $userIds $Global:properties $minutes $Global:dateFormat $Global:metadata $Global:data $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
+			Export-Logs $endDate $startDate $null $Global:resultSize $userIds $minutes $Global:dateFormat $Global:metadata $Global:data $Global:informationColor $Global:successColor $Global:warningColor $Global:errorColor
 			Export-Hashes $Global:hashes
 		}
 		5
