@@ -1,4 +1,4 @@
-function Export-ByRecordset($recordTypes)
+function Export-RecordType($recordTypes)
 {
 	[DateTime]$startDate = Get-StartDate
 	[DateTime]$endDate = Get-EndDate

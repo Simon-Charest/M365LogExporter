@@ -55,8 +55,21 @@ function Invoke-Menu([int]$menuInput)
 		}
 		9
 		{
-			Write-Host "In development" -ForegroundColor:$Global:warningColor
-			Invoke-Pause
+			Write-Host "AuditLogRecordType: https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema#auditlogrecordtype"
+			$recordTypes = -1
+
+			do
+			{
+				if ($recordTypes -ne -1)
+				{
+					Write-Host "Unexpected input. Please try again." -ForegroundColor:$Global:errorColor
+				}
+				
+				$recordTypes = Select-RecordTypes
+			}
+			while ([string]::IsNullOrWhiteSpace($recordTypes))
+
+			Export-RecordType $recordTypes
 		}
 		10 { Show-Content $null "README.txt" $true }
 		11 { Show-Content $null "LICENSE.txt" $true }
