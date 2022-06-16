@@ -4,6 +4,17 @@ M365 contains valuable information for auditing and incident response. This solu
 
 Every command requires a date interval. When exporting, a data file will be created. A second file will contain information about the export process. A third file will contain the hashes of the exported data. 
 
+Instead of dealing with sub-loops with up to 10 pages of 5K result sets, with ReturnNextPreviewPage session commands and session ids, it was decided to set the limit results to a single page of 5K. Every time the 5K limit is reached, the interval size will be cut in half before relaunching a search with the same start date. The interval size will be reset the next time the lower limit of 1K (1/5th) results is reached.
+
+## More information
+- Data retention:
+    - M365 E3: 90 days;
+    - M365 E3 with Exchange Online (Plan 1) and M365 Advanced Compliance: 1 year;
+    - M365 E5: 1 year;
+- Unified Audit Logs are in UTC date format;
+- Enabling Mailbox Auditing can take up to 24 hours. Past data will not be available;
+- This solution supports Unified Audit Log. It does not support any other type of log (i.e., Message trace, etc.).
+
 ## Prerequisites
 - The Unified Audit Log Ingestion setting must be enabled in the M365 environment;
 - A M365 account, with the View-Only Audit Logs management role and:
@@ -45,14 +56,5 @@ Every command requires a date interval. When exporting, a data file will be crea
 - data.csv: Actual Unified Audit Log exported data;
 - hashes.csv: Hashes of the exported CSV files.
 
-## Tips
-- Data retention:
-    - M365 E3: 90 days;
-    - M365 E3 with Exchange Online (Plan 1) and M365 Advanced Compliance: 1 year;
-    - M365 E5: 1 year;
-- Unified Audit Logs are in UTC date format;
-- Enabling Mailbox Auditing can take up to 24 hours. Past data will not be available;
-- This script does not support Message trace.
-
-## More information
+## Documentation
 - [Search the audit log in the compliance portal](https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance).
