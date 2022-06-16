@@ -1,8 +1,10 @@
+# M365 Log Exporter
+
 M365 contains valuable information for auditing and incident response. This solution was created to ease the export of Unified Audit Logs and their hash values.
 
 Every command requires a date interval. When exporting, a data file will be created. A second file will contain information about the export process. A third file will contain the hashes of the exported data. 
 
-Prerequisites
+## Prerequisites
 - The Unified Audit Log Ingestion setting must be enabled in the M365 environment;
 - A M365 account, with the View-Only Audit Logs management role and:
     - A M365 E5 license or;
@@ -22,7 +24,7 @@ Prerequisites
 - PowerShellGet 2.0 or later;
 - The Exchange Online PowerShell V2 module.
 
-Available commands
+## Available commands
 1. Change tenant: Disconnect from the current tenant then prompt the user for their login credentials for the next one;
 2. Check log status: Check if the Unified Audit Log Ingestion setting is Enabled;
 3. Export log metrics: Export log metrics, within a date interval, to a CSV file;
@@ -37,13 +39,13 @@ Available commands
 12. Show ABOUT: Display this solution's information;
 13. Exit.
 
-Output
+## Output
 - metrics.txt: Statistics about the exportable Unified Audit Log data;
 - metadata.txt: Information about the export process;
 - data.csv: Actual Unified Audit Log exported data;
 - hashes.csv: Hashes of the exported CSV files.
 
-Tips
+## Tips
 - Data retention:
     - M365 E3: 90 days;
     - M365 E3 with Exchange Online (Plan 1) and M365 Advanced Compliance: 1 year;
@@ -52,5 +54,5 @@ Tips
 - Enabling Mailbox Auditing can take up to 24 hours. Past data will not be available;
 - This script does not support Message trace.
 
-More information
-- Search the audit log in the compliance portal (https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance).
+## More information
+- [Search the audit log in the compliance portal](https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance).

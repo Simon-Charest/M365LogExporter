@@ -71,7 +71,7 @@ function Invoke-Menu([int]$menuInput)
 
 			Export-RecordType $recordTypes
 		}
-		10 { Show-Content $null "README.txt" $true }
+		10 { Show-Content $null "README.md" $true }
 		11 { Show-Content $null "LICENSE.txt" $true }
 		12 { Show-Content $null "ABOUT.txt" $true }
 		13 { Write-Host "** DONE **" -ForegroundColor:$Global:successColor }
