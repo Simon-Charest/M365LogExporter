@@ -22,4 +22,7 @@ function Export-Metrics($recordTypes, [string]$userIds, [string]$filePath)
 
     # Export total result count
     Write-ToFile "Total: $($resultCount)" $filePath $Global:successColor
+
+    Write-ToFile "** DONE **" $filePath $successColor
+    Invoke-Pause
 }

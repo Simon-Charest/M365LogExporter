@@ -107,4 +107,7 @@ function Export-Logs
         while (($resultCount -ge $resultSize) -or ($resultCount -ne $estimatedCount))
     }
     while ($startDate -lt $endDate)
+
+    Write-ToFile "** DONE **" $metadata $successColor
+    Invoke-Pause
 }
