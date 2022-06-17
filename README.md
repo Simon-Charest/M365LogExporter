@@ -4,7 +4,7 @@ M365 contains valuable information for auditing and incident response. This solu
 
 Every command requires a date interval. When exporting, a data file will be created. A second file will contain information about the export process. A third file will contain the hashes of the exported data. 
 
-Instead of dealing with sub-loops with up to 10 pages of 5K result sets, with ReturnNextPreviewPage session commands and session ids, it was decided to set the limit results to a single page of 5K. Every time the 5K limit is reached, the interval size will be cut in half before relaunching a search with the same start date. The interval size will be reset the next time the lower limit of 1K (1/5th) results is reached.
+Instead of dealing with sub-loops with up to 10 pages of 5K result sets, with ReturnNextPreviewPage session commands and session ids, it was decided to set the limit results to a single page of 5K. Every time the 5K limit is reached, the interval size will be cut in half before relaunching a search with the same start date. The interval size will be reset the next time the lower limit of 1K (1/5th) results is reached. Note: The same interval size automatic lowering logic is applied when a result set count is not equal its ResultCount value.
 
 ## More information
 - Data retention:
