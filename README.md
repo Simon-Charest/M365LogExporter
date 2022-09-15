@@ -1,10 +1,35 @@
-# M365 Log Exporter
+<pre>
+ __  __ ____  __ ___   _                ___                   _
+|  \/  |__ / / /| __| | |   ___  __ _  | __|_ ___ __  ___ _ _| |_ ___ _ _
+| |\/| ||_ \/ _ \__ \ | |__/ _ \/ _' | | _|\ \ / '_ \/ _ \ '_|  _/ -_) '_|
+|_|  |_|___/\___/___/ |____\___/\__, | |___/_\_\ .__/\___/_|  \__\___|_|
+                                |___/          |_|
+</pre>
 
 M365 contains valuable information for auditing and incident response. This solution was created to ease the export of Unified Audit Logs and their hash values.
 
 Every command requires a date interval. When exporting, a data file will be created. A second file will contain information about the export process. A third file will contain the hashes of the exported data. 
 
 Instead of dealing with sub-loops with up to 10 pages of 5K result sets, with ReturnNextPreviewPage session commands and session ids, it was decided to set the limit results to a single page of 5K. Every time the 5K limit is reached, the interval size will be cut in half before relaunching a search with the same start date. The interval size will be reset the next time the lower limit of 1K (1/5th) results is reached. Note: The same interval size automatic lowering logic is applied when a result set count is not equal its ResultCount value.
+
+---
+
+## Setup
+```powershell
+C:
+mkdir C:\src
+cd C:\src
+git clone https://github.com/Simon-Charest/M365LogExporter.git
+```
+
+## Usage
+```powershell
+C:
+cd C:\src\M365LogExporter
+.\M365LogExporter.ps1
+```
+
+---
 
 ## More information
 - Data retention:
