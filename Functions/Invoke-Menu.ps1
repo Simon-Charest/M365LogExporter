@@ -73,7 +73,7 @@ function Invoke-Menu([int]$menuInput)
 		}
 		10 { Show-Content $null "README.md" $true }
 		11 { Show-Content $null "LICENSE.txt" $true }
-		12 { Show-Content $null "ABOUT.txt" $true }
+		12 { Show-Content $null "ABOUT.md" $true }
 		13 { Write-Host "** DONE **" -ForegroundColor:$Global:successColor }
 	}
 }

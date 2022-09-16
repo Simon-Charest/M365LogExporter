@@ -82,4 +82,8 @@ cd C:\src\M365LogExporter
 - hashes.csv: Hashes of the exported CSV files.
 
 ## Documentation
-- [Search the audit log in the compliance portal](https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance).
+- [Export, configure, and view audit log records](https://docs.microsoft.com/en-us/microsoft-365/compliance/export-view-audit-log-records);
+- [Office 365 Management Activity API reference](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-reference);
+- [Office 365 Management Activity API schema](https://docs.microsoft.com/en-us/office/office-365-management-api/office-365-management-activity-api-schema);
+- [Search the audit log in the compliance portal](https://docs.microsoft.com/en-us/microsoft-365/compliance/search-the-audit-log-in-security-and-compliance);
+- [Search-UnifiedAuditLog](https://docs.microsoft.com/en-us/powershell/module/exchange/search-unifiedauditlog?view=exchange-ps).
